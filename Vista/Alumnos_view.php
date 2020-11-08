@@ -1,9 +1,4 @@
-<?php include '../Partes/Encabezado.php';
-$txtID=(isset($_POST['txtID']))?$_POST['txtID']:"";
-
-
-
-?>
+<?php include '../Partes/Encabezado.php';?>
 
 
 
@@ -37,52 +32,83 @@ $txtID=(isset($_POST['txtID']))?$_POST['txtID']:"";
 </nav>
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#Modal-Asistencia">
+
+<button  id="nuevo" type="button" name="accion"  value="Nuevo" class="btn btn-success mb-3" 
+data-toggle="modal" data-target="#Modal-Asistencia">
 <i class="fas fa-plus"></i>
 Nuevo Alumno
 </button>
 
-<table class="table table-striped table-bordered table-hover ">
-<tr class="bg-warning text-center">
-<th>Id</th>
-<th>Nombre</th>
-<th>Apellido</th>
-<th>Documento</th>
-<th>Telefono</th>
-<th>Direccion</th>
-<th>Correo</th>
-<th>Asistencia</th>
-<th>Acciones</th>
- </tr>
- <?php include"../Modelo/alumnos_model.php";
-$alumnos=new Alumnos;
-$lista=$alumnos->GetAlumnos();
-$fila=mysqli_fetch_row($lista) ;
- foreach($lista as $fila):?>
-<tr>
-<td><?php echo $fila['IdAlumno']?></td>
-<td> <?php echo $fila['Nombre']?> </td>
-<td><?php echo $fila['Apellido'] ?> </td>
-<td><?php echo $fila['Documento']?>  </td>
-<td><?php echo $fila['Telefono']?> </td>
-<td><?php echo $fila['Dirreccion']?> </td>
-<td><?php echo $fila['Correo']?> </td>
-<td>%</td>
-<td><div class="text-center"><div class="btn-group">
-<button class="btn btn-info mr-2 btnEditar">Editar</button>
-<button class="btn btn-danger btnBorrar">Borrar</button>   
-</div></div> 
-</td>
-  </tr>
- <?php endforeach; ?>
+<table id="tablaAlumno" class="table table-striped table-bordered table-hover tablaAlumno">
+                <tr class="bg-warning text-center">
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Documento</th>
+                <th>Telefono</th>
+                <th>Direccion</th>
+                <th>Correo</th>
+                <th>Acciones</th>
+                </tr>
+                <?php 
+
+                foreach($lista as $fila):?>
+                <tr>
+                <td><?php echo $fila['IdAlumno']?></td>
+                <td> <?php echo $fila['Nombre']?> </td>
+                <td><?php echo $fila['Apellido'] ?> </td>
+                <td><?php echo $fila['Documento']?>  </td>
+                <td><?php echo $fila['Telefono']?> </td>
+                <td><?php echo $fila['Dirreccion']?> </td>
+                <td><?php echo $fila['Correo']?> </td>
+                <td>
+                <Form class="formOculto" action="" method="POST">  
+                        <input type="hidden" name="txtId" value="<?php echo $fila['IdAlumno']?>">
+                        <input type="hidden"  name="txtNombre" value="<?php echo $fila['Nombre']?>">
+                        <input type="hidden"  name="txtApellido" value="<?php echo $fila['Apellido']?>">
+                        <input type="hidden"  name="txtDocumento" value="<?php echo $fila['Documento']?>">
+                        <input type="hidden"  name="txtTelefono" value="<?php echo $fila['Telefono']?>">
+                        <input type="hidden"  name="txtDireccion" value="<?php echo $fila['Dirreccion']?>">
+                        <input type="hidden"  name="txtCorreo" value="<?php echo $fila['Correo']?>">
+                  
+                <div class="text-center"><div class="btn-group">
+                <button type="submit" name="accion"  value="Editar" class="btn btn-info mr-2 botonedit" id="btnEditar" >Editar</button>
+                <button type="submit" name="accion" value="Borrar" class="btn btn-danger btnBorrar">Borrar</button>   
+                </div></div> 
+                </td>
+                </Form>
+                  </tr>
+                <?php endforeach; ?>
+
+                    <tr id="formulario">
+                    <Form   action="" method="POST">  
+                        <td><?php echo $Id ?></td>
+                       <td>  <input type="text" class="accion"  name="txtNombre" value="<?php echo $Nombre?>"> </td>
+                       <td> <input type="text"  class="accion"  name="txtApellido" value="<?php echo $Apellido?>"></td>
+                       <td> <input type="text" class="accion" name="txtDocumento" value="<?php echo $Documento?>" > </td>
+                       <td> <input type="text" class="accion" name="txtTelefono"  value="<?php echo $Telefono?>"></td>
+                       <td> <input type="text" class="accion" name="txtDireccion" value="<?php echo $Direccion?>"></td>
+                       <td> <input type="text" class="accion correo" name="txtCorreo" value="<?php echo $Correo ?>"></td>
+                       <td>  <div class="text-center"><div class="btn-group">
+                <button type="submit" name="accion"  value="Editar" class="btn btn-info mr-2 botonedit" id="btnEditar" >Editar</button>
+                <button type="submit" name="accion" value="Borrar" class="btn btn-danger btnBorrar">Borrar</button>   
+                </div>
+                </div> 
+                </td>
+                </Form>
+
+                </tr>
+
+
+
   </table>
 
 <br> 
 
 
 <!-- Modal -->
-<div class="modal fade" id="Modal-Asistencia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+<div class="modal fade " id="Modal-Asistencia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Alumnos</h5>
@@ -94,39 +120,39 @@ $fila=mysqli_fetch_row($lista) ;
       <form class="needs-validation " action="" method="POST" >
                         <div class="form-group ">
                                 
-                                <input class="form-control" name="Nombre" placeholder="Nombre" type="text" value="" required>
+                                <input class="form-control" name="txtNombre" placeholder="Nombre" type="text" value="<?php echo $Nombre?>" required>
                                 <div class="invalid-feedback">complete el campo</div>
                         </div>
                         <div class="form-group">
                                 
-                                <input class="form-control " name="Apellido" value="" type="text" placeholder="Apellido" required>
+                                <input class="form-control " name="txtApellido" value="<?php echo $Apellido?>" type="text" placeholder="Apellido" required>
                                 <div class="invalid-feedback">complete el campo</div>
                         </div>
                         <div class="form-group ">
                                 
-                                <input class="form-control" name="Documento" placeholder="Documento" type="text" value="" required>
+                                <input class="form-control" name="txtDocumento" placeholder="Documento" type="text" value="<?php echo $Documento?>" required>
                                 <div class="invalid-feedback">complete el campo</div>
                         </div>
                         <div class="form-group">
                                   
-                                <input class="form-control " name="Telefono" value="" type="text" placeholder="Telefono" required>
+                                <input class="form-control " name="txtTelefono" value="<?php echo $Telefono?>" type="text" placeholder="Telefono" required>
                                 <div class="invalid-feedback">complete el campo</div>
                         </div>
                         <div class="form-group ">
                                 
-                                <input class="form-control" name="Direccion" placeholder="Direccion" type="text" value="" required>
+                                <input class="form-control" name="txtDireccion" placeholder="Direccion" type="text" value="<?php echo $Direccion?>" required>
                                 <div class="invalid-feedback">complete el campo</div>
                         </div>
                         <div class="form-group">
           
-                                <input class="form-control" name="Correo" value="" type="text" placeholder="Correo ej juanperez@ejemplo.com" required>
+                                <input class="form-control" name="txtCorreo" value="<?php echo $Correo ?>" type="text" placeholder="Correo ej juanperez@ejemplo.com" required>
                                 <div class="invalid-feedback">complete el campo</div>
                         </div>
       
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn bg-danger" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-success">Guardar</button>
+        <button type="submit" class="btn bg-danger" data-dismiss="modal">Cancelar</button>
+        <button type="submit" name="accion" value="Guardar" class="btn btn-success" >Guardar</button>
         
       </div> </form>
     </div>

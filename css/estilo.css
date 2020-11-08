@@ -54,10 +54,9 @@ opacity: 0.7;
 #btnPresente {
     margin-right: 10px;
 }  
-#tablaPresente {
-     background-color: blue;
-
+input.accion{
+    width:120px ;
 }
-.Asistencia{
-  height:500px ;
+input.accion.correo{
+    width:200px ;
 }

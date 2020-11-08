@@ -45,24 +45,9 @@
 
  <div class="main">
       
- <?php if (isset($_POST['presente'])) {
- $id=$POST['txtId'];
- $nombre=$POST['txtNombre'];
- $apellido=$POST['txtApellido'];
- $presente =$_POST['txtIPre'];
-
-$alumno=array($id->value,$nombre,$apellido,$presente);
-
  
 
-     for ($i=0;$i<count($alumno);$i++){
-      echo'<div class="alert alert-success text-center"> '. $alumno[i].'</div>';
-        echo $alumno[i] . "<br>";  
-        
-  
- }} ?>
-
-<section id="Clases" class="one">
+  <section id="Clases" class="one">
 						<div class="container bg-dark">
                 <br>
                 <br>
@@ -82,11 +67,10 @@ $alumno=array($id->value,$nombre,$apellido,$presente);
 					</section>
 
 <section id="Asistencia" class="two">
-
+</section>
 						<div class="container bg-success">
             <br>
-            <br>
-            <br>
+            
 							<header>
 								<h2>Asistencia</h2>
 							</header>
@@ -109,22 +93,21 @@ $alumno=array($id->value,$nombre,$apellido,$presente);
                 <td> <?php echo $fila['Nombre']?> </td>
                 <td><?php echo $fila['Apellido'] ?> </td>
                 <td> <form action="" method="POST">
-                      <input type="hidden" name="txtId" value="<?php echo $fila['IdAlumno']?>">
-                      <input type="hidden" name="txtIPre" value="TRUE">
-                      <input type="hidden" name="txtNombre" value="<?php echo $fila['Nombre']?>">
-                      <input type="hidden" name="txtApellido" value="<?php echo $fila['Apellido']?>">
+                      <input type="text" name="txtId[]" value="<?php echo $fila['IdAlumno']?>">
                 <div class=" text-center">
                 <div class="btn-group">
-                        <button type="submit" name="presente" class="btn btn-success btn-sm " id="btnSi">Presente</button>    
-                </div> 
-                <div class="form-check-inline">
-                    <label class="form-check-label">
-                      <input type="checkbox"id="chekpresente" class="form-check-input chekpresente" value="" readonly> Presente </label>
-                    </div>
-                </form>
+                         <?php $arrayDatos = $_POST['txtId'];                                                  
+                          foreach ($arrayDatos as $key => $value) {
+                              echo $arrayDatos['txtId'];                             
+                          }                        
+                  ?>
+                        <button type="submit" name="presente" class="btn btn-success btn-sm ">Presente</button> 
+                                </div> 
+                                </div> 
+                                </form>
                     </td>
             </tr>
-                 <?php endforeach; ?>
+                 <?php endforeach;?>
             </tr>
             </tbody>
     </table>
@@ -160,18 +143,21 @@ $alumno=array($id->value,$nombre,$apellido,$presente);
                     <th>Apellido</th>
              </tr>
           <tbody class="bg-dark text-success">
-            <tr>
-                 <td>pepe</td>
-                 <td>pipe</td>       
-            </tr>
-            <tr>
-                 <td>pepe</td>
-                 <td>pipe</td>       
-            </tr>
-            <tr>
-                 <td>pepe</td>
-                 <td>pipe</td>       
-            </tr>
+                    <tr>  <?php                     
+                        if (isset($_POST['presente'])) {
+                                      foreach($lista as $fila):?>
+                           <tr>  <form action="" method="POST">
+                              <td>
+                            <input type="text" name="txtId" value="<?php echo $fila['IdAlumno']?>"></td>
+                            <td>  <input type="text" name="txtNombre" value="<?php echo $fila['Nombre']?>"></td>
+                            <td>  <input type="text" name="txtApellido" value="<?php echo $fila['Apellido']?>"></td>
+                                      </form>    </tr>
+                          
+                            
+                      
+                      </tr>
+
+                      <?php endforeach;}?>  
             </table>
           
             </div>
@@ -185,36 +171,8 @@ $alumno=array($id->value,$nombre,$apellido,$presente);
 </div>
 
 
-
-<br>
-<br>
-<br>
-						</div>
-
-
-					</section>
-
-
-<br>
-<br>
-<br>
-
-<br>
-<br>
-
-<br>
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 <section id="acercade" class="three">
 						<div class="container bg-dark">
-                  <br>
-                  <br>
-                  <br>
 							<header>
 								<h2>Acerca de G.D.A.</h2>
 							</header>
@@ -227,6 +185,7 @@ $alumno=array($id->value,$nombre,$apellido,$presente);
                Tambien puede realizar reportes de alumnos y su porcentaje de asistencia correspondiente a cada uno de ellos. 
                    </p>
 						</div>
-					</section>
-
- <?php include '../partes/Pie.php';?>
+          </section> 
+          
+          </div>
+          <?php include '../partes/Pie.php';?>

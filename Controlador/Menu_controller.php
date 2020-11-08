@@ -2,10 +2,5 @@
 if ($_SESSION ['s_usuario']===null){
 header("Location:../index.php");} ;
 include "../Vista/Menu_view.php";
+
 ?>
-
-
-
-
-
-
